@@ -1,6 +1,6 @@
 # Crypto Dashboard
 
-Live ratio dashboard tracking Bitcoin against gold (XAU), Ethereum against Bitcoin (ETH/BTC), and USD against satoshis — all in one place.
+Live ratio dashboard tracking Bitcoin against gold (XAU), Ethereum against Bitcoin (ETH/BTC), and USD against satoshis all in one place.
 
 ## Screenshots
 
@@ -49,25 +49,4 @@ Open [http://localhost:3000](http://localhost:3000).
 ```bash
 pnpm build
 pnpm start
-```
-
-## Project Structure
-
-```
-btc-xau-dashboard/
-├── apps/
-│   └── web/                  # Next.js app
-│       └── src/
-│           ├── app/
-│           │   ├── api/
-│           │   │   ├── btc-xau/  # current + history routes
-│           │   │   └── eth-btc/  # current + history routes
-│           │   └── page.tsx
-│           ├── components/
-│           │   └── Dashboard.tsx
-│           └── hooks/
-│               ├── useBtcXauData.ts
-│               └── useEthBtcData.ts
-└── packages/
-    └── utils/                # Shared formatters (formatUsd, formatPercent, formatUsdCents)
 ```
