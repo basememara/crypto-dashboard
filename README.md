@@ -2,6 +2,12 @@
 
 Live ratio dashboard tracking Bitcoin against gold (XAU), Ethereum against Bitcoin (ETH/BTC), and USD against satoshis — all in one place.
 
+## Screenshots
+
+| BTC / XAU | ETH / BTC | USD / SAT |
+|-----------|-----------|-----------|
+| ![BTC/XAU](assets/btc-xau.png) | ![ETH/BTC](assets/etc-btc.png) | ![USD/SAT](assets/usd-sat.png) |
+
 ## Widgets
 
 | Widget | What it shows |
