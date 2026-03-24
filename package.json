@@ -1,13 +1,17 @@
 {
-  "name": "btc-xau-dashboard",
+  "name": "dashboard",
   "version": "0.0.0",
   "private": true,
   "engines": {
     "node": ">=24"
   },
   "scripts": {
-    "dev": "pnpm --filter @repo/web dev",
-    "build": "pnpm --filter @repo/web build",
-    "start": "pnpm --filter @repo/web start"
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "clean": "pnpm turbo clean && rm -rf node_modules"
+  },
+  "packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a",
+  "devDependencies": {
+    "turbo": "^2.8.20"
   }
 }

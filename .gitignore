@@ -1,26 +1,28 @@
-# Dependencies
-node_modules/
-.pnpm-store/
-
-# Next.js
-**/.next/
-**/out/
-**/next-env.d.ts
-
-# Build
+# compiled
+build/
 dist/
+node_modules/
+*.tsbuildinfo
 
-# Environment
+# secrets
+certificates
+keys.json
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 
-# OS
+# logs
+logs
+*.log
+
+# dependencies
+/.pnp
+/.pnpm-store
+.pnp.js
+.pnpm-debug.log*
+npm-debug.log*
+.turbo
+
+# os
 .DS_Store
-
-# Editor
-.vscode/
-.idea/
-
-# pnpm
-pnpm-debug.log*
+**/.DS_Store

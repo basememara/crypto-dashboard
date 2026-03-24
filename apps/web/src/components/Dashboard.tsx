@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useBtcXauCurrent, useBtcXauHistory } from "@/hooks/useBtcXauData";
 import { useEthBtcCurrent, useEthBtcHistory } from "@/hooks/useEthBtcData";
-import { formatUsd, formatPercent, formatUsdCents } from "@repo/utils";
+import { formatUsd, formatPercent, formatUsdCents } from "@dashboard/utils";
 import {
   formatRatio,
   formatInverse,
@@ -27,6 +27,7 @@ import {
   Tooltip as RechartsTooltip,
   CartesianGrid,
 } from "recharts";
+import type { ContentType } from "recharts/types/component/Tooltip";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TrendingUp, TrendingDown, AlertCircle, ChevronDown, Check } from "lucide-react";
@@ -129,16 +130,16 @@ const ChangeBadge = ({ value }: { value: number }) => (
   </span>
 );
 
-const RatioChart = ({
+const RatioChart = <T extends ChartPoint>({
   data,
   range,
   formatY = formatRatio,
   tooltip,
 }: {
-  data: ChartPoint[];
+  data: T[];
   range: Range;
   formatY?: (v: number) => string;
-  tooltip?: React.ComponentType<{ active?: boolean; payload?: Array<{ payload: ChartPoint }> }>;
+  tooltip?: React.ComponentType<{ active?: boolean; payload?: ReadonlyArray<{ payload?: T }> }>;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dims, setDims] = useState<{ width: number; height: number } | null>(null);
@@ -186,7 +187,8 @@ const RatioChart = ({
             tickLine={false}
             width={42}
           />
-          {tooltip && <RechartsTooltip content={tooltip} cursor={{ stroke: "hsl(var(--border))" }} />}
+          {/* Recharts ContentType doesn't align with generic tooltip props — cast justified at library boundary */}
+          {tooltip && <RechartsTooltip content={tooltip as ContentType} cursor={{ stroke: "hsl(var(--border))" }} />}
           <Area
             type="monotone"
             dataKey="ratio"
@@ -227,8 +229,8 @@ const ErrorState = ({ error }: { error: Error }) => (
 
 // ─── BTC / XAU widget ─────────────────────────────────────────────────────────
 
-const BtcXauTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ payload: RatioPoint }> }) => {
-  if (!active || !payload?.[0]) return null;
+const BtcXauTooltip = ({ active, payload }: { active?: boolean; payload?: ReadonlyArray<{ payload?: RatioPoint }> }) => {
+  if (!active || !payload?.[0]?.payload) return null;
   const d = payload[0].payload;
   return (
     <div className="bg-popover border border-popover-border rounded-lg px-3 py-2 shadow-md text-xs">
@@ -292,8 +294,8 @@ const BtcXauWidget = ({ range, onRangeChange }: { range: Range; onRangeChange: (
 
 // ─── ETH / BTC widget ─────────────────────────────────────────────────────────
 
-const EthBtcTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ payload: EthBtcPoint }> }) => {
-  if (!active || !payload?.[0]) return null;
+const EthBtcTooltip = ({ active, payload }: { active?: boolean; payload?: ReadonlyArray<{ payload?: EthBtcPoint }> }) => {
+  if (!active || !payload?.[0]?.payload) return null;
   const d = payload[0].payload;
   return (
     <div className="bg-popover border border-popover-border rounded-lg px-3 py-2 shadow-md text-xs">
@@ -356,8 +358,8 @@ const EthBtcWidget = ({ range, onRangeChange }: { range: Range; onRangeChange: (
 
 // ─── USD / SAT widget ─────────────────────────────────────────────────────────
 
-const UsdSatTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ payload: UsdSatPoint }> }) => {
-  if (!active || !payload?.[0]) return null;
+const UsdSatTooltip = ({ active, payload }: { active?: boolean; payload?: ReadonlyArray<{ payload?: UsdSatPoint }> }) => {
+  if (!active || !payload?.[0]?.payload) return null;
   const d = payload[0].payload;
   return (
     <div className="bg-popover border border-popover-border rounded-lg px-3 py-2 shadow-md text-xs">

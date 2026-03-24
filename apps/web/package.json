@@ -1,14 +1,15 @@
 {
-  "name": "@repo/web",
+  "name": "@dashboard/web",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "next dev --turbopack",
+    "build": "rm -rf .next && next build --turbopack",
+    "start": "next start",
+    "clean": "rm -rf node_modules .next"
   },
   "dependencies": {
-    "@repo/utils": "workspace:*",
+    "@dashboard/utils": "workspace:*",
     "next": "^16",
     "react": "^19",
     "react-dom": "^19",

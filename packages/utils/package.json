@@ -1,5 +1,5 @@
 {
-  "name": "@repo/utils",
+  "name": "@dashboard/utils",
   "version": "0.0.0",
   "private": true,
   "exports": {
